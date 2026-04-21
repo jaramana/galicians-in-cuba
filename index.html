@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Arabs in Cuba</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --near-black: #111111;
+    --dark: #1a1a1a;
+    --panel-bg: rgba(10, 10, 10, 0.82);
+    --panel-border: rgba(255,255,255,0.08);
+    --white: #f0ece4;
+    --white-dim: rgba(240, 236, 228, 0.75);
+    --accent: #c8a96e;
+    --accent-dim: rgba(200, 169, 110, 0.6);
+    --green: #4a9e6b;
+    --orange: #c8622a;
+    --gray-label: rgba(240, 236, 228, 0.45);
+    --font-display: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Libre Baskerville', Georgia, serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 18px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2.5rem;
+    height: 52px;
+    background: rgba(10,10,10,0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid var(--panel-border);
+  }
+
+  .nav-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-label);
+    text-decoration: none;
+    transition: color 0.2s;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    color: var(--white);
+    border-bottom-color: var(--accent);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    height: 100vh;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 0 6vh 0;
+    position: relative;
+    overflow: hidden;
+    background: var(--near-black);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,10,10,0.85) 40%, rgba(10,10,10,0.3) 100%),
+      linear-gradient(to top, rgba(10,10,10,0.7) 20%, transparent 60%);
+    z-index: 1;
+  }
+
+  /* Placeholder for hero image — replace src with your actual image */
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.55;
+    filter: saturate(0.3) brightness(0.7);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 3.5rem 0 3.5rem;
+    max-width: 680px;
+  }
+
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white-dim);
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc {
+    font-size: 0.88rem;
+    line-height: 1.8;
+    color: var(--white-dim);
+    max-width: 480px;
+    border-left: 1px solid var(--accent-dim);
+    padding-left: 1.25rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    right: 3rem;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-label);
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent-dim), transparent);
+    animation: scrollline 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollline {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.5) translateY(-8px); }
+    50% { opacity: 1; transform: scaleY(1) translateY(0); }
+  }
+
+  /* ── SECTION STRUCTURE ── */
+
+  /* Chapter divider */
+  .chapter-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 5rem 3.5rem 3rem;
+  }
+
+  .chapter-num {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    color: rgba(200,169,110,0.15);
+    line-height: 1;
+    min-width: 3rem;
+  }
+
+  .chapter-info {
+    border-left: 1px solid var(--accent-dim);
+    padding-left: 1.5rem;
+  }
+
+  .chapter-label {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .chapter-title {
+    font-family: var(--font-display);
+    font-size: 2.2rem;
+    font-weight: 300;
+    color: var(--white);
+  }
+
+  /* Full-bleed image with floating panel */
+  .scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    overflow: hidden;
+    background: var(--near-black);
+  }
+
+  .scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.4) brightness(0.65);
+  }
+
+  /* Placeholder scene when no image */
+  .scene-placeholder {
+    width: 100%;
+    aspect-ratio: 16/7;
+    background: var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .scene-placeholder-text {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.15);
+    text-transform: uppercase;
+  }
+
+  /* Floating text panel over a scene */
+  .scene-panel {
+    position: absolute;
+    top: 50%;
+    left: 3rem;
+    transform: translateY(-50%);
+    max-width: 440px;
+    background: var(--panel-bg);
+    border: 0.5px solid var(--panel-border);
+    padding: 1.75rem 2rem;
+    backdrop-filter: blur(6px);
+  }
+
+  .scene-panel p {
+    font-size: 0.92rem;
+    line-height: 1.85;
+    color: var(--white);
+  }
+
+  .scene-panel p + p {
+    margin-top: 0.9rem;
+  }
+
+  /* Map legend overlay (bottom-right of scene) */
+  .map-legend {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    text-align: right;
+  }
+
+  .map-legend-year {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1;
+    margin-bottom: 0.6rem;
+  }
+
+  .legend-item {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .legend-swatch {
+    width: 18px;
+    height: 2px;
+  }
+
+  /* Prose section */
+  .prose-section {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 5rem 2rem;
+  }
+
+  .prose-section h2 {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 2.5rem;
+    color: var(--white);
+  }
+
+  .prose-section p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--white-dim);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Photo grid */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+    margin: 0;
+  }
+
+  .photo-grid-item {
+    aspect-ratio: 4/3;
+    background: var(--dark);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: saturate(0.6);
+    transition: filter 0.4s, transform 0.5s;
+  }
+
+  .photo-grid-item:hover img {
+    filter: saturate(1);
+    transform: scale(1.03);
+  }
+
+  .photo-placeholder {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: rgba(255,255,255,0.12);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Word table panel */
+  .word-scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    background: var(--dark);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  .word-panel {
+    position: relative;
+    z-index: 2;
+    margin-left: 3rem;
+    background: var(--panel-bg);
+    border: 0.5px solid var(--panel-border);
+    padding: 2rem 2.5rem;
+    max-width: 520px;
+    backdrop-filter: blur(6px);
+  }
+
+  .word-panel h3 {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 1.25rem;
+  }
+
+  .word-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+  }
+
+  .word-table thead tr {
+    border-bottom: 0.5px solid rgba(255,255,255,0.15);
+  }
+
+  .word-table th {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    padding: 0 1rem 0.6rem 0;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  .word-table td {
+    padding: 0.45rem 1rem 0.45rem 0;
+    color: var(--white);
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+    vertical-align: middle;
+  }
+
+  .word-table td.arabic {
+    font-size: 1rem;
+    text-align: right;
+    direction: rtl;
+    padding-right: 0;
+    color: var(--accent);
+  }
+
+  .word-table td.italic-col {
+    font-style: italic;
+    color: var(--white-dim);
+  }
+
+  .word-table tr:last-child td {
+    border-bottom: none;
+    font-style: italic;
+    color: var(--gray-label);
+    padding-top: 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* Quote pull */
+  .pull-quote {
+    max-width: 600px;
+    margin: 4rem auto;
+    padding: 2.5rem 3.5rem;
+    border-top: 0.5px solid var(--accent-dim);
+    border-bottom: 0.5px solid var(--accent-dim);
+    text-align: center;
+  }
+
+  .pull-quote blockquote {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--white);
+  }
+
+  .pull-quote cite {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-style: normal;
+  }
+
+  /* Full-bleed composited image */
+  .composite-scene {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/7;
+    overflow: hidden;
+    background: var(--near-black);
+  }
+
+  .composite-scene img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .composite-scene .scene-panel {
+    top: 2.5rem;
+    transform: none;
+  }
+
+  /* Section separator line */
+  .sep {
+    width: 60px;
+    height: 1px;
+    background: var(--accent-dim);
+    margin: 0 auto 2.5rem;
+  }
+
+  /* Stat grid */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--panel-border);
+    margin: 0;
+  }
+
+  .stat-cell {
+    background: var(--near-black);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-label);
+  }
+
+  /* Footer */
+  footer {
+    padding: 5rem 3.5rem;
+    border-top: 0.5px solid var(--panel-border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .footer-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+  }
+
+  .footer-meta {
+    font-size: 0.82rem;
+    color: var(--gray-label);
+    line-height: 1.8;
+  }
+
+  .footer-meta a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .footer-credits {
+    font-size: 0.82rem;
+    color: var(--gray-label);
+    line-height: 2;
+  }
+
+  .footer-credits strong {
+    font-weight: 700;
+    color: var(--white-dim);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .footer-credits strong:first-child { margin-top: 0; }
+
+  /* Fade-in on scroll */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1.25rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.55rem; }
+    .hero-content { padding: 0 1.5rem; }
+    .scene-panel { left: 1rem; right: 1rem; max-width: none; top: auto; bottom: 1.5rem; transform: none; }
+    .word-panel { margin: 1rem; max-width: none; }
+    .prose-section { padding: 3rem 1.5rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .chapter-divider { padding: 3rem 1.5rem 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-title">The Arabs in Cuba</a>
+  <ul class="nav-links">
+    <li><a href="#ch1" class="active">From Spain to Cuba</a></li>
+    <li><a href="#ch2">Arab Migration</a></li>
+    <li><a href="#ch3">Social Structure</a></li>
+    <li><a href="#ch4">Collective Identity</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Replace with your actual hero image -->
+  <!-- <img class="hero-img" src="assets/hero.jpg" alt=""> -->
+  <div class="hero-bg"></div>
+  <div class="hero-content reveal">
+    <p class="hero-eyebrow">A visual history</p>
+    <h1 class="hero-title">The Arabs<br><em>in Cuba</em></h1>
+    <p class="hero-subtitle">Based on the book by Rigoberto Menéndez Paredes</p>
+    <p class="hero-desc">A centuries-long story of migration, culture, and identity — from the shores of Al-Andalus to the streets of Havana.</p>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- ════════════════════════════════════
+     CHAPTER 1: FROM SPAIN TO CUBA
+     ════════════════════════════════════ -->
+<div id="ch1"></div>
+<div class="chapter-divider reveal">
+  <div class="chapter-num">I</div>
+  <div class="chapter-info">
+    <p class="chapter-label">Chapter one</p>
+    <h2 class="chapter-title">From Spain to Cuba</h2>
+  </div>
+</div>
+
+<!-- Scene: Al-Andalus map -->
+<div class="scene reveal">
+  <!-- <img src="assets/ch1-andalus.jpg" alt="Map of Al-Andalus"> -->
+  <div class="scene-placeholder">
+    <span class="scene-placeholder-text">Map image — Al-Andalus / Iberian Peninsula</span>
+  </div>
+  <div class="scene-panel">
+    <p>Arabic entities ruled or had a presence in the Iberian Peninsula for nearly 800 years until their final expulsion in 1492 at the hands of the Christian kingdoms of Castile and Aragon.</p>
+  </div>
+  <div class="map-legend">
+    <div class="map-legend-year">750</div>
+    <div class="legend-item">
+      <span>Islamic rule</span>
+      <span class="legend-swatch" style="background: var(--green);"></span>
+    </div>
+    <div class="legend-item">
+      <span>Christian rule</span>
+      <span class="legend-swatch" style="background: var(--orange);"></span>
+    </div>
+    <div class="legend-item" style="color: var(--gray-label);">
+      <span>Contemporary boundaries</span>
+      <span class="legend-swatch" style="background: rgba(255,255,255,0.3);"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Prose: Architecture -->
+<section class="prose-section reveal">
+  <div class="sep"></div>
+  <h2>Architecture</h2>
+  <p>A visible legacy of the Arab influence on Cuba are the buildings constructed mostly in the 17th century, in which the forms and techniques of the so-called "Mudéjar" dominated the architectural landscape at the time.</p>
+  <p>This Arabic-influenced style, meaning "tamed" or "domesticated," was practiced by builders and craftsmen in Spain and applied to many elements of Islamic arts, sometimes combined with Christian elements.</p>
+  <p>In the Cuban case, the use of this style was not an intentional attempt to take Arabic building as a model, but was rather the popular architecture in which the Spanish builders and craftsmen immigrating to the island had been trained in.</p>
+</section>
+
+<!-- Photo grid: Architecture -->
+<div class="photo-grid reveal">
+  <div class="photo-grid-item">
+    <!-- <img src="assets/arch-1.jpg" alt="Mudéjar ceiling detail"> -->
+    <span class="photo-placeholder">Architecture photo 1</span>
+  </div>
+  <div class="photo-grid-item">
+    <!-- <img src="assets/arch-2.jpg" alt="Havana colonial building"> -->
+    <span class="photo-placeholder">Architecture photo 2</span>
+  </div>
+  <div class="photo-grid-item">
+    <!-- <img src="assets/arch-3.jpg" alt="Moorish arch detail"> -->
+    <span class="photo-placeholder">Architecture photo 3</span>
+  </div>
+</div>
+
+<!-- Word origins -->
+<div class="word-scene reveal" id="language">
+  <!-- <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.35;filter:grayscale(1);" src="assets/ch1-hasta.jpg" alt="Hasta la victoria siempre billboard"> -->
+  <div style="position:absolute;inset:0;background:var(--near-black);opacity:0.6;"></div>
+  <div class="word-panel">
+    <h3>Spanish words of Arabic origin include:</h3>
+    <table class="word-table">
+      <thead>
+        <tr>
+          <th>Spanish</th>
+          <th>Transliteration</th>
+          <th>English</th>
+          <th>Arabic</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Hasta</td><td class="italic-col">Hatta</td><td>Until</td><td class="arabic">حتى</td></tr>
+        <tr><td>Almohada</td><td class="italic-col">Almohada</td><td>Pillow</td><td class="arabic">مخدة</td></tr>
+        <tr><td>Azúcar</td><td class="italic-col">Sucar</td><td>Sugar</td><td class="arabic">السكر</td></tr>
+        <tr><td>Aceit</td><td class="italic-col">Azeit</td><td>Oil</td><td class="arabic">زيت</td></tr>
+        <tr><td>Aceituna</td><td class="italic-col">Azeitun</td><td>Olive</td><td class="arabic">زيتون</td></tr>
+        <tr><td>Tasa</td><td class="italic-col">Tasa</td><td>Cup</td><td class="arabic">طاسة</td></tr>
+        <tr><td>Café</td><td class="italic-col">Qahwa</td><td>Coffee</td><td class="arabic">قهوة</td></tr>
+        <tr><td>Ojalá</td><td class="italic-col">Inshallah</td><td>Hopefully</td><td class="arabic">إن شاء الله</td></tr>
+        <tr><td colspan="4">Among many others…</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     CHAPTER 2: ARAB MIGRATION
+     ════════════════════════════════════ -->
+<div id="ch2"></div>
+<div class="chapter-divider reveal">
+  <div class="chapter-num">II</div>
+  <div class="chapter-info">
+    <p class="chapter-label">Chapter two</p>
+    <h2 class="chapter-title">Arab Migration</h2>
+  </div>
+</div>
+
+<!-- Scene: Migration map -->
+<div class="scene reveal">
+  <!-- <img src="assets/ch2-migration.jpg" alt="Map showing migration routes from Greater Syria"> -->
+  <div class="scene-placeholder">
+    <span class="scene-placeholder-text">Map image — migration routes from Greater Syria to Cuba</span>
+  </div>
+  <div class="scene-panel">
+    <p>Most Arabs emigrated to Cuba right after the First World War as the Ottoman Empire was collapsing and the colonial rule of Greater Syria by France and the United Kingdom was beginning.</p>
+    <p>It was at this time that the Cuban immigration census accounted for Arabs as distinct people from Turks.</p>
+  </div>
+  <div class="map-legend">
+    <div class="map-legend-year">1923</div>
+    <div class="legend-item">
+      <span>Colonial boundaries</span>
+      <span class="legend-swatch" style="background: var(--green);"></span>
+    </div>
+    <div class="legend-item" style="color: var(--gray-label);">
+      <span>Contemporary boundaries</span>
+      <span class="legend-swatch" style="background: rgba(255,255,255,0.3);"></span>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stat-grid reveal">
+  <div class="stat-cell">
+    <div class="stat-number">~5,000</div>
+    <div class="stat-label">Arabs in Cuba by 1919</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">1902</div>
+    <div class="stat-label">First recorded Arab immigration wave</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-number">3</div>
+    <div class="stat-label">Main origin regions: Syria, Lebanon, Palestine</div>
+  </div>
+</div>
+
+<div class="pull-quote reveal">
+  <blockquote>
+    "They came with little more than the clothes on their backs and the languages of two worlds in their mouths."
+  </blockquote>
+  <cite>— Placeholder quote, replace with source</cite>
+</div>
+
+<!-- ════════════════════════════════════
+     CHAPTER 3: SOCIAL STRUCTURE
+     ════════════════════════════════════ -->
+<div id="ch3"></div>
+<div class="chapter-divider reveal">
+  <div class="chapter-num">III</div>
+  <div class="chapter-info">
+    <p class="chapter-label">Chapter three</p>
+    <h2 class="chapter-title">Social Structure</h2>
+  </div>
+</div>
+
+<!-- Scene: Havana map -->
+<div class="scene reveal">
+  <!-- <img src="assets/ch3-havana.jpg" alt="Aerial map of Havana showing Arab settlement areas"> -->
+  <div class="scene-placeholder">
+    <span class="scene-placeholder-text">Map image — Havana, Centro Habana &amp; Habana Vieja</span>
+  </div>
+  <div class="scene-panel">
+    <p>Many Arabs began establishing their businesses and institutions, most concentrating in pockets in areas around Centro Habana and Habana Vieja.</p>
+  </div>
+</div>
+
+<section class="prose-section reveal">
+  <div class="sep"></div>
+  <h2>Commerce &amp; Community</h2>
+  <p>Placeholder text for the Social Structure chapter. Replace with content from the book about how Arab-Cuban communities organized themselves, their commercial activities, clubs, newspapers, and religious institutions.</p>
+  <p>Additional paragraph about the role of Calle Monte and the concentration of Arab-owned businesses along key commercial corridors in central Havana.</p>
+  <p>Discussion of the social networks, mutual aid societies, and the transmission of culture across generations of Arab-Cubans.</p>
+</section>
+
+<!-- ════════════════════════════════════
+     CHAPTER 4: COLLECTIVE IDENTITY
+     ════════════════════════════════════ -->
+<div id="ch4"></div>
+<div class="chapter-divider reveal">
+  <div class="chapter-num">IV</div>
+  <div class="chapter-info">
+    <p class="chapter-label">Chapter four</p>
+    <h2 class="chapter-title">Collective Identity</h2>
+  </div>
+</div>
+
+<!-- Scene: Composite historical + contemporary -->
+<div class="composite-scene reveal">
+  <!-- <img src="assets/ch4-composite.jpg" alt="Historical Arab immigrants composited onto contemporary Cuban street"> -->
+  <div class="scene-placeholder" style="aspect-ratio: 16/7;">
+    <span class="scene-placeholder-text">Composite image — historical &amp; contemporary</span>
+  </div>
+  <div class="scene-panel">
+    <p>Arab-Cubans formed as a notable ethnic group throughout the country; their economic activity earned them a good reputation and provided success for their community.</p>
+  </div>
+</div>
+
+<section class="prose-section reveal">
+  <div class="sep"></div>
+  <h2>Legacies</h2>
+  <p>Placeholder text for the Collective Identity chapter. Replace with content about how Arab-Cuban identity was maintained, transformed, and ultimately woven into Cuban national culture over the 20th century.</p>
+  <p>Discussion of language, religion, cuisine, music, and the gradual but never complete assimilation of Arab communities into Cuban society.</p>
+</section>
+
+<!-- FOOTER -->
+<footer class="reveal">
+  <div>
+    <div class="footer-title">The Arabs in Cuba</div>
+    <p class="footer-meta">
+      A visual essay based on<br>
+      <em>Los Árabes en Cuba</em> by Rigoberto Menéndez Paredes<br><br>
+      <a href="https://losarabesencuba.com">losarabesencuba.com</a>
+    </p>
+  </div>
+  <div class="footer-credits">
+    <strong>Research &amp; Design</strong>
+    Your name here
+    <strong>Source</strong>
+    Menéndez Paredes, Rigoberto. <em>Los Árabes en Cuba.</em> Havana: Ediciones Boloña, 2007.
+    <strong>Built with</strong>
+    HTML · CSS · Scrollama · GitHub Pages
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.2.0/scrollama.min.js"></script>
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav active state on scroll
+  const chapters = ['ch1','ch2','ch3','ch4'];
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const chapterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+
+  chapters.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) chapterObserver.observe(el);
+  });
+</script>
+</body>
+</html>
